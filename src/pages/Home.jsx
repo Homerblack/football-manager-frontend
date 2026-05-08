@@ -59,8 +59,8 @@ const Home = () => {
             marginBottom: "10px",
           }}
         >
-          ⚽ Futsal Tournament Platform
-        </h1>
+           Ajit Bipin Subarna E-Football Tournament 
+          </h1>
 
         <p
           style={{
@@ -77,7 +77,7 @@ const Home = () => {
       {/* TOURNAMENTS */}
 
       <h2>
-        🏆 Ongoing Tournaments
+      Tournaments
       </h2>
 
       <div
