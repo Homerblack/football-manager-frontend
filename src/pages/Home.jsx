@@ -68,8 +68,7 @@ const Home = () => {
             color: "gray",
           }}
         >
-          Manage tournaments, teams,
-          matches and live standings.
+          Who will be the winner????????
         </p>
 
       </div>
