@@ -42,9 +42,22 @@ const Sidebar = () => {
           Matches
         </Link>
 
-        <Link to="/approvals" style={linkStyle}>
-          Approvals
+        <Link to="/match-results" style={linkStyle}>
+          Match Results
         </Link>
+        <Link
+  to="/score-entry"
+  style={linkStyle}
+>
+  Score Entry
+</Link>
+
+<Link
+  to="/approvals"
+  style={linkStyle}
+>
+  Approvals
+</Link>
 
         <li>
   <Link to="/standings">

@@ -17,6 +17,10 @@ import Standings from "./pages/Standings";
 
 import Home from "./pages/Home";
 import PublicStandings from "./pages/PublicStandings";
+import MatchScoreEntry from "./pages/MatchScoreEntry";
+
+import MatchApprovals from "./pages/MatchApprovals";
+import PublicMatches from "./pages/PublicMatches";
 
 function App() {
 
@@ -40,6 +44,11 @@ function App() {
             element={<Login />}
           />
 
+
+          <Route
+  path="/public-matches/:tournamentId"
+  element={<PublicMatches />}
+/>
           <Route
             path="/public-standings/:tournamentId"
             element={<PublicStandings />}
@@ -82,6 +91,23 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+  path="/score-entry"
+  element={
+    <ProtectedRoute>
+      <MatchScoreEntry />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/approvals"
+  element={
+    <ProtectedRoute>
+      <MatchApprovals />
+    </ProtectedRoute>
+  }
+/>
 
           <Route
             path="/standings"

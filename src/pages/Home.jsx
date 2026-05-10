@@ -13,7 +13,11 @@ const Home = () => {
   const loadTournaments = async () => {
     try {
       const data = await getTournaments();
-      setTournaments(data);
+      setTournaments(
+  Array.isArray(data)
+    ? data
+    : data.content || []
+);
     } catch (err) {
       console.error(err);
     }
@@ -111,6 +115,29 @@ const Home = () => {
             >
               View Standings
             </button>
+            <button
+  onClick={(e) => {
+
+    e.stopPropagation();
+
+    navigate(
+      `/public-matches/${tournament.id}`
+    );
+
+  }}
+  style={{
+    marginTop: "10px",
+    marginLeft: "10px",
+    padding: "10px 20px",
+    border: "none",
+    background: "#22c55e",
+    color: "white",
+    borderRadius: "8px",
+    cursor: "pointer",
+  }}
+>
+  View Matches
+</button>
           </div>
         ))}
       </div>

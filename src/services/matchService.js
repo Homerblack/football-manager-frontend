@@ -32,3 +32,14 @@ export const getStandings = async (
 
   return res.data;
 };
+
+export const getMatchesByTournament =
+  async (tournamentId) => {
+
+    const response =
+      await api.get(
+        `/matches/tournament/${tournamentId}`
+      );
+
+    return response.data;
+};
