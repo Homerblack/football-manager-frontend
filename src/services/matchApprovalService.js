@@ -58,3 +58,16 @@ export const getPendingApprovals =
 
     return response.data;
   };
+
+  export const quickUpdateScore = async (
+  matchId,
+  data
+) => {
+
+  const response = await api.post(
+    `/match-approvals/${matchId}/quick-update`,
+    data
+  );
+
+  return response.data;
+};

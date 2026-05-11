@@ -1,4 +1,7 @@
-import { useEffect, useState } from "react";
+import {
+  useEffect,
+  useState,
+} from "react";
 
 import Layout from "../components/Layout";
 
@@ -10,22 +13,27 @@ import {
 
 const Teams = () => {
 
-  const [teams, setTeams] = useState([]);
+  const [teams, setTeams] =
+    useState([]);
 
-  const [form, setForm] = useState({
-    name: "",
-    shortName: "",
-  });
+  const [form, setForm] =
+    useState({
+      name: "",
+      shortName: "",
+    });
 
   useEffect(() => {
+
     loadTeams();
+
   }, []);
 
   const loadTeams = async () => {
 
     try {
 
-      const data = await getTeams();
+      const data =
+        await getTeams();
 
       setTeams(data);
 
@@ -35,146 +43,281 @@ const Teams = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit =
+    async (e) => {
 
-    e.preventDefault();
+      e.preventDefault();
 
-    try {
+      try {
 
-      await createTeam(form);
+        await createTeam(form);
 
-      setForm({
-        name: "",
-        shortName: "",
-      });
+        setForm({
+          name: "",
+          shortName: "",
+        });
 
-      loadTeams();
+        loadTeams();
 
-    } catch (err) {
+      } catch (err) {
 
-      console.error(err);
+        console.error(err);
 
-      alert("Failed to create team");
-    }
-  };
+        alert(
+          "Failed to create team"
+        );
+      }
+    };
 
-  const handleDelete = async (id) => {
+  const handleDelete =
+    async (id) => {
 
-    try {
+      const confirmed =
+        window.confirm(
+          "Delete this team?"
+        );
 
-      await deleteTeam(id);
+      if (!confirmed) return;
 
-      loadTeams();
+      try {
 
-    } catch (err) {
+        await deleteTeam(id);
 
-      console.error(err);
-    }
-  };
+        setTeams((prev) =>
+          prev.filter(
+            (team) =>
+              team.id !== id
+          )
+        );
+
+      } catch (err) {
+
+        console.error(err);
+
+        alert(
+          "Failed to delete team"
+        );
+      }
+    };
 
   return (
+
     <Layout>
 
-      <h1>Teams</h1>
-
-      {/* FORM */}
-
-      <form
-        onSubmit={handleSubmit}
+      <div
         style={{
-          marginTop: "20px",
-          display: "flex",
-          gap: "10px",
+          maxWidth: "1100px",
+          margin: "0 auto",
+          padding: "20px",
         }}
       >
 
-        <input
-          placeholder="Team Name"
-          value={form.name}
-          onChange={(e) =>
-            setForm({
-              ...form,
-              name: e.target.value,
-            })
-          }
-        />
+        {/* HEADER */}
 
-        <input
-          placeholder="Short Name"
-          value={form.shortName}
-          onChange={(e) =>
-            setForm({
-              ...form,
-              shortName: e.target.value,
-            })
-          }
-        />
+        <div
+          style={{
+            marginBottom: "30px",
+          }}
+        >
 
-        <button type="submit">
-          Create
-        </button>
+          <h1
+            style={{
+              fontSize: "34px",
+              marginBottom: "10px",
+              color: "#111827",
+            }}
+          >
+            Teams
+          </h1>
 
-      </form>
+          <p
+            style={{
+              color: "#6b7280",
+            }}
+          >
+            Manage football teams
+          </p>
 
-      {/* TABLE */}
+        </div>
 
-      <table
-        border="1"
-        cellPadding="10"
-        style={{
-          width: "100%",
-          marginTop: "30px",
-          background: "white",
-        }}
-      >
+        {/* CREATE TEAM */}
 
-        <thead>
+        <div
+          style={{
+            background: "white",
+            borderRadius: "18px",
+            padding: "24px",
+            marginBottom: "30px",
+            boxShadow:
+              "0 4px 14px rgba(0,0,0,0.08)",
+          }}
+        >
 
-          <tr>
+          <h2
+            style={{
+              marginBottom: "20px",
+            }}
+          >
+            Create Team
+          </h2>
 
-            <th>ID</th>
-            <th>Name</th>
-            <th>Short Name</th>
-            <th>Actions</th>
+          <form
+            onSubmit={handleSubmit}
+            style={{
+              display: "grid",
+              gridTemplateColumns:
+                "repeat(auto-fit,minmax(220px,1fr))",
+              gap: "16px",
+            }}
+          >
 
-          </tr>
+            <input
+              type="text"
+              placeholder="Team Name"
+              value={form.name}
+              onChange={(e) =>
+                setForm({
+                  ...form,
+                  name:
+                    e.target.value,
+                })
+              }
+              style={inputStyle}
+            />
 
-        </thead>
+            <input
+              type="text"
+              placeholder="Short Name"
+              value={form.shortName}
+              onChange={(e) =>
+                setForm({
+                  ...form,
+                  shortName:
+                    e.target.value,
+                })
+              }
+              style={inputStyle}
+            />
 
-        <tbody>
+            <button
+              type="submit"
+              style={buttonStyle}
+            >
+              Create Team
+            </button>
+
+          </form>
+
+        </div>
+
+        {/* TEAM LIST */}
+
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "18px",
+          }}
+        >
 
           {teams.map((team) => (
 
-            <tr key={team.id}>
+            <div
+              key={team.id}
+              style={{
+                background: "white",
+                borderRadius: "18px",
+                padding: "22px",
+                boxShadow:
+                  "0 4px 14px rgba(0,0,0,0.06)",
+                display: "flex",
+                justifyContent:
+                  "space-between",
+                alignItems: "center",
+                flexWrap: "wrap",
+                gap: "20px",
+              }}
+            >
 
-              <td>{team.id}</td>
+              <div>
 
-              <td>{team.name}</td>
-
-              <td>{team.shortName}</td>
-
-              <td>
-
-                <button
-                  onClick={() =>
-                    handleDelete(team.id)
-                  }
+                <p
+                  style={{
+                    color: "#9ca3af",
+                    marginBottom: "6px",
+                    fontSize: "14px",
+                  }}
                 >
-                  Delete
-                </button>
+                  Team ID #{team.id}
+                </p>
 
-              </td>
+                <h2
+                  style={{
+                    margin: 0,
+                    fontSize: "24px",
+                    color: "#111827",
+                  }}
+                >
+                  {team.name}
+                </h2>
 
-            </tr>
+                <p
+                  style={{
+                    marginTop: "8px",
+                    color: "#6b7280",
+                    fontWeight: "600",
+                  }}
+                >
+                  {team.shortName}
+                </p>
+
+              </div>
+
+              <button
+                onClick={() =>
+                  handleDelete(team.id)
+                }
+                style={{
+                  background: "#ef4444",
+                  color: "white",
+                  border: "none",
+                  padding:
+                    "10px 18px",
+                  borderRadius: "10px",
+                  cursor: "pointer",
+                  fontWeight: "600",
+                }}
+              >
+                Delete
+              </button>
+
+            </div>
 
           ))}
 
-        </tbody>
+        </div>
 
-      </table>
+      </div>
 
     </Layout>
   );
+};
+
+const inputStyle = {
+  padding: "12px",
+  borderRadius: "12px",
+  border: "1px solid #d1d5db",
+  fontSize: "15px",
+};
+
+const buttonStyle = {
+  background: "#111827",
+  color: "white",
+  border: "none",
+  borderRadius: "12px",
+  padding: "12px 18px",
+  cursor: "pointer",
+  fontWeight: "600",
 };
 
 export default Teams;
