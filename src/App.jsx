@@ -22,6 +22,7 @@ import MatchScoreEntry from "./pages/MatchScoreEntry";
 import MatchApprovals from "./pages/MatchApprovals";
 import PublicMatches from "./pages/PublicMatches";
 
+
 function App() {
 
   return (
@@ -53,6 +54,7 @@ function App() {
             path="/public-standings/:tournamentId"
             element={<PublicStandings />}
           />
+      
 
           {/* PROTECTED ROUTES */}
 
