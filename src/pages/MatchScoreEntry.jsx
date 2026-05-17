@@ -131,9 +131,6 @@ const MatchScoreEntry = () => {
               <div style={countBadgeStyle}>
                 <span style={{ fontWeight: "800" }}>{matches.length}</span> Pending
               </div>
-              <button onClick={handleLogout} style={logoutButtonStyle}>
-                <span style={{ fontSize: "14px" }}>🚪</span> Sign Out
-              </button>
             </div>
           </div>
 
